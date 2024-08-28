@@ -19,3 +19,13 @@ export type SidebarItemType = {
 export type ComponentType = {
   [key: string]: ReactNode;
 };
+
+export type Donut = {
+  createdAt: string;
+  imageName: string;
+  name: string;
+  price: number;
+  quantity: string;
+  updatedAt: string;
+  _id: string;
+};
