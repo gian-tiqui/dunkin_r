@@ -9,6 +9,7 @@ export type RouteType = {
   path: string;
   name: string;
   element: ReactNode;
+  protected: boolean;
 };
 
 export type SidebarItemType = {
