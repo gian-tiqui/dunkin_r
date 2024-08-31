@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { DUNKIN } from "../pages/LoginPage";
 import { useNavigate } from "react-router-dom";
-import useComponentStore from "../store/useComponentStore";
+import useComponentStore from "../store/componentStore";
 
 interface SidebarProps {
   children?: ReactNode;

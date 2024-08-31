@@ -5,7 +5,7 @@ import Sidebar from "../component/Sidebar";
 import Donuts from "../component/Donuts";
 import Combos from "../component/Combos";
 import Users from "../component/Users";
-import useComponentStore from "../store/useComponentStore";
+import useComponentStore from "../store/componentStore";
 import { ComponentType } from "../types/types";
 
 const HomePage = () => {
