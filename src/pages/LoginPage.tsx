@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export const DUNKIN = "dunkin";
 
@@ -29,11 +30,18 @@ const LoginPage = () => {
         return;
       }
 
-      const responseData = response.data;
+      const { accessToken, refreshToken } = response.data;
+
+      localStorage.setItem(DUNKIN, accessToken);
+
+      Cookies.set("refreshToken", refreshToken, {
+        httpOnly: import.meta.env.VITE_NODE_ENV === "production",
+        secure: false,
+        sameSite: "Strict",
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30), // 30 days
+      });
 
       navigate("/");
-
-      localStorage.setItem(DUNKIN, responseData.data.accessToken);
     } catch (error) {
       console.error("Error logging in:", error);
     }

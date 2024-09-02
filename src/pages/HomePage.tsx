@@ -11,11 +11,13 @@ import { ComponentType } from "../types/types";
 const HomePage = () => {
   const redirect = useNavigate();
   const { selectedComponent } = useComponentStore();
+
   const components: ComponentType = {
     Donuts: <Donuts />,
     Combos: <Combos />,
     Users: <Users />,
   };
+
   useEffect(() => {
     try {
       if (!localStorage.getItem(DUNKIN)) redirect("/login");
