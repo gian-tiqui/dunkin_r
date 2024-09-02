@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { Donut } from "../types/types";
 import useDonutStore from "../store/donutStore";
+import apiClient from "../utils/apiClient";
 
 const Donuts = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
@@ -12,7 +12,7 @@ const Donuts = () => {
     const fetchDonuts = async () => {
       if (donuts.length == 0) {
         try {
-          const response = await axios.get(`${apiUrl}/api/v1/donuts`, {
+          const response = await apiClient.get(`${apiUrl}/api/v1/donuts`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("dunkin")}`,
             },
