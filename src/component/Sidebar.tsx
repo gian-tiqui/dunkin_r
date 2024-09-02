@@ -1,7 +1,9 @@
 import React, { ReactNode } from "react";
 import { DUNKIN } from "../pages/LoginPage";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import useComponentStore from "../store/componentStore";
+import axios from "axios";
 
 interface SidebarProps {
   children?: ReactNode;
@@ -12,10 +14,25 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   const sideBarItems: string[] = ["Donuts", "Combos", "Users"];
   const { setSelectedComponent } = useComponentStore();
 
-  const handleLogout = () => {
-    localStorage.removeItem(DUNKIN);
-    redirect("/login");
-    window.location.reload();
+  const handleLogout = async () => {
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}/logout`,
+        {
+          data: { refreshToken: Cookies.get(DUNKIN) },
+        }
+      );
+
+      if (response.status === 200) {
+        localStorage.removeItem(DUNKIN);
+        Cookies.remove(DUNKIN);
+
+        redirect("/login");
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

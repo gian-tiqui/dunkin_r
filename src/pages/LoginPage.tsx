@@ -34,7 +34,7 @@ const LoginPage = () => {
 
       localStorage.setItem(DUNKIN, accessToken);
 
-      Cookies.set("refreshToken", refreshToken, {
+      Cookies.set(DUNKIN, refreshToken, {
         httpOnly: import.meta.env.VITE_NODE_ENV === "production",
         secure: false,
         sameSite: "Strict",
