@@ -37,23 +37,23 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
 
   return (
     <div className="flex w-full h-screen">
-      <div className="flex flex-col justify-between w-1/4 bg-white shadow">
-        <div>
+      <aside className="flex flex-col justify-between w-1/4 bg-white">
+        <ul>
           {sideBarItems.map((item: string, index: number) => (
-            <p
+            <li
               onClick={() => setSelectedComponent(item)}
               className="cursor-pointer"
               key={index}
             >
               {item}
-            </p>
+            </li>
           ))}
-        </div>
+        </ul>
         <div>
           <button onClick={handleLogout}>logout</button>
         </div>
-      </div>
-      <div className="w-3/4 overflow-auto">{children}</div>
+      </aside>
+      <div className="w-3/4 p-2 overflow-auto">{children}</div>
     </div>
   );
 };
