@@ -2,6 +2,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 export const DUNKIN = "dunkin";
 
@@ -46,6 +47,14 @@ const LoginPage = () => {
       console.error("Error logging in:", error);
     }
   };
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(DUNKIN) || Cookies.get(DUNKIN)) navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  }, [navigate]);
 
   return (
     <section className="grid w-full h-screen place-content-center">

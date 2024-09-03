@@ -7,6 +7,7 @@ import Combos from "../component/Combos";
 import Users from "../component/Users";
 import useComponentStore from "../store/componentStore";
 import { ComponentType } from "../types/types";
+import Cookies from "js-cookie";
 
 const HomePage = () => {
   const redirect = useNavigate();
@@ -20,7 +21,8 @@ const HomePage = () => {
 
   useEffect(() => {
     try {
-      if (!localStorage.getItem(DUNKIN)) redirect("/login");
+      if (!localStorage.getItem(DUNKIN) || !Cookies.get(DUNKIN))
+        redirect("/login");
     } catch (error) {
       console.error(error);
     }
