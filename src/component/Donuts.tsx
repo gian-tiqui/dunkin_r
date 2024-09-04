@@ -1,32 +1,9 @@
-import { useEffect } from "react";
 import { Donut } from "../types/types";
-import useDonutStore from "../store/donutStore";
-import apiClient from "../utils/apiClient";
-import { DUNKIN } from "../pages/LoginPage";
+import useDonuts from "../data/donuts";
 
 const Donuts = () => {
-  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const imageUrl = import.meta.env.VITE_IMAGE_URL;
-  const { donuts, setDonuts } = useDonutStore();
-
-  useEffect(() => {
-    const fetchDonuts = async () => {
-      if (donuts.length == 0) {
-        try {
-          const response = await apiClient.get(`${apiUrl}/api/v1/donuts`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem(DUNKIN)}`,
-            },
-          });
-          setDonuts(response.data.data.donuts);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-
-    fetchDonuts();
-  }, [apiUrl, donuts.length, setDonuts]);
+  const donuts = useDonuts();
 
   const titleCase = (word: string) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
@@ -44,8 +21,20 @@ const Donuts = () => {
 
   return (
     <div className="font-mono">
-      <div className="mb-2">
+      <div className="flex justify-between mb-2">
         <input placeholder="hi" />
+        <div className="flex justify-end gap-2">
+          <select defaultValue={"asc"} defaultChecked={true}>
+            <option value={"asc"}>Ascending</option>
+            <option value={"desc"}>Descending</option>
+          </select>
+          <select defaultValue={"name"} defaultChecked={true}>
+            <option>Name</option>
+            <option>Quantity</option>
+            <option>Price</option>
+            <option>Date</option>
+          </select>
+        </div>
       </div>
       <div className="flex flex-wrap gap-2">
         {donuts.length > 0 ? (
@@ -70,9 +59,13 @@ const Donuts = () => {
                 <p>Date Added:</p>
                 <p>{formatDate(donut.createdAt)}</p>
               </div>
-              <div className="flex justify-between">
-                <button>Edit</button>
-                <button>Delete</button>
+              <div className="flex justify-between mt-5">
+                <button className="px-3 py-1 text-white bg-black rounded">
+                  Edit
+                </button>
+                <button className="px-3 py-1 text-white bg-red-500 rounded">
+                  Delete
+                </button>
               </div>
             </div>
           ))
