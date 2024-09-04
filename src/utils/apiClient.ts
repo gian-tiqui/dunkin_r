@@ -8,7 +8,7 @@ const apiClient = axios.create({
   withCredentials: true,
 });
 
-function isTokenExpired(token: string) {
+const isTokenExpired = (token: string) => {
   if (!token) return true;
 
   const { exp } = jwtDecode(token);
@@ -19,7 +19,7 @@ function isTokenExpired(token: string) {
   }
 
   return false;
-}
+};
 
 apiClient.interceptors.request.use(
   async (config) => {
